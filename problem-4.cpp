@@ -1,5 +1,4 @@
 #include <iostream>
-#include<vector>
 #include<string>
 using namespace std;
 struct Node {
@@ -10,19 +9,19 @@ struct Node {
     Node(int n) : item(n), left(nullptr), right(nullptr) {}
 };
 
-bool isTreeSymmetric(Node* leftTree, Node* rigthTree) {
+bool isTreeSymmetric(Node* leftTree, Node* rightTree) {
 
-    if (leftTree == nullptr && rigthTree == nullptr)
+    if (leftTree == nullptr && rightTree == nullptr)
         return true;
 
-    if (leftTree == nullptr || rigthTree == nullptr)
+    if (leftTree == nullptr || rightTree == nullptr)
         return false;
 
-    if (leftTree->item != rigthTree->item)
+    if (leftTree->item != rightTree->item)
         return false;
 
-    return isTreeSymmetric(leftTree->left, rigthTree->right)
-        && isTreeSymmetric(leftTree->right, rigthTree->left);
+    return isTreeSymmetric(leftTree->left, rightTree->right)
+        && isTreeSymmetric(leftTree->right, rightTree->left);
 }
 
 int main() {
@@ -40,8 +39,5 @@ int main() {
     }
     else {
         cout << "No" << endl;
-
     }
-
-  
 }
