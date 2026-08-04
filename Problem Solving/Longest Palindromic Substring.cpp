@@ -16,18 +16,19 @@ bool isPalindrom(string s)
 
 int main()
 {
-	string s = "babad";
+	string s = "fabad";
 	string longesPalindrom = "";
 	int max = 0;
 
 	for (int i = 0; i < s.size(); i++)
 	{
 		string word = "";
-		for (int j = 0; j < s.size(); j++)
+		for (int j = i; j < s.size(); j++)
 		{
 			word += s[j];
 			if (isPalindrom(word) && word.size() > max)
 			{
+				max = word.size();
 				longesPalindrom = word;
 			}
 		}
