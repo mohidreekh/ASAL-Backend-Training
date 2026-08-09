@@ -23,9 +23,9 @@ using namespace std;
 //};
 
 //PROBLEM : If we want to add new payment method we should modify the class.
-// 
-//SOLUTION : Using Strategy Pattern.
-
+//************************************
+//SOLUTION  1: Using Strategy Pattern.
+//************************************
 
 class Pay {
 public:
@@ -73,4 +73,111 @@ public:
 		processor.process(card);
 		processor.process(crypto);
 	}
+};
+
+//**********************************
+//SOLUTION 2 : Using Factory Pattern
+//**********************************
+#include<map>
+
+class Pay
+{
+public:
+    virtual void process() = 0;
+    virtual ~Pay() = default;
+};
+
+
+// Concrete Products
+
+class Card : public Pay
+{
+public:
+    void process() override
+    {
+        cout << "Processing Card Payment\n";
+    }
+};
+
+
+class PayPal : public Pay
+{
+public:
+    void process() override
+    {
+        cout << "Processing PayPal Payment\n";
+    }
+};
+
+
+class Crypto : public Pay
+{
+public:
+    void process() override
+    {
+        cout << "Processing Crypto Payment\n";
+    }
+};
+
+
+class PaymentFactory
+{
+private:
+
+    using Creator = Pay * (*)();
+
+    static map<string, Creator>& getCreators()
+    {
+        static map<string, Creator> creators
+        {
+            {"card", []() -> Pay*
+            {
+                return new Card();
+            }},
+
+            {"paypal", []() -> Pay*
+            {
+                return new PayPal();
+            }},
+
+            {"crypto", []() -> Pay*
+            {
+                return new Crypto();
+            }}
+        };
+
+        return creators;
+    }
+
+
+public:
+
+    static Pay* create(string type)
+    {
+        auto& creators = getCreators();
+
+        auto it = creators.find(type);
+
+        if (it != creators.end())
+        {
+            return it->second();
+        }
+
+        return nullptr;
+    }
+};
+
+
+class PayemntFactoryDemo {
+public:
+    void demo() {
+        Pay* payment = PaymentFactory::create("paypal");
+
+        if (payment)
+        {
+            payment->process();
+        }
+
+        delete payment;
+    }
 };
