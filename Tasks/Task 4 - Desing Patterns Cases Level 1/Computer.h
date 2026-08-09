@@ -57,7 +57,7 @@ public:
     virtual void buildGpu(string gpu) = 0;
     virtual void buildStorage(string storage) = 0;
 
-    virtual Computer getComputer() = 0;
+    virtual Computer build() = 0;
 
     virtual ~Builder() = default;
 };
@@ -88,7 +88,7 @@ public:
         computer.storage = storage;
     }
 
-    Computer getComputer() override
+    Computer build() override
     {
         return computer;
     }
@@ -97,13 +97,13 @@ public:
 class Director
 {
 public:
-    Computer makeGammingComputer(Builder& builder)
+    Computer makeGamingComputer(Builder& builder)
     {
         builder.buildCpu("Intel Core i9");
         builder.buildRam(64);
         builder.buildGpu("C100");
         builder.buildStorage("2TB");
 
-        return builder.getComputer();
+        return builder.build();
     }
 };

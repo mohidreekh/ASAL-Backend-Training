@@ -73,6 +73,6 @@ public:
 
     double calculate(ShippingStrategy* ship, double weight)
     {
-        ship->calculate(weight);
+        return ship->calculate(weight);
     }
 };

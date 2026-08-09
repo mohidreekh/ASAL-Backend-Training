@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include<memory>
 using namespace std;
 
 //class Coffee
@@ -32,13 +33,14 @@ using namespace std;
 
 class Drink {
 public:
-    virtual double price() = 0;
+    virtual double price() const = 0;
+    virtual ~Drink() = default;
 };
 
 class Coffee : public Drink
 {
 public:
-    double price() override
+    double price() const override
     {
         return 2.0;
     }
@@ -46,21 +48,22 @@ public:
 
 class CoffeeDecorator : public Drink{
 protected:
-    Drink* wrapper;
+    unique_ptr<Drink> wrapper;
 public:
-    CoffeeDecorator(Drink* drink) {
-        this->wrapper = drink;
-    }
-    double price() override {
+    CoffeeDecorator(unique_ptr<Drink> drink)
+        : wrapper(move(drink)) {}
+
+    double price() const override {
         return 0;
     }
 };
 
 class MilkCoffeeDecorator : public CoffeeDecorator {
 public:
-    MilkCoffeeDecorator(Drink* drink) : CoffeeDecorator(drink) {}
+    MilkCoffeeDecorator(unique_ptr<Drink> drink)
+        : CoffeeDecorator(move(drink)) {}
 
-    double price() override {
+    double price() const override {
         return wrapper->price() + 0.5;
     }
 };
@@ -68,12 +71,12 @@ public:
 class ChocolateDecorator : public CoffeeDecorator
 {
 public:
-    ChocolateDecorator(Drink* drink)
-        : CoffeeDecorator(drink)
+    ChocolateDecorator(unique_ptr<Drink> drink)
+        : CoffeeDecorator(move(drink))
     {
     }
 
-    double price() override
+    double price() const override
     {
         return wrapper->price() + 1.0;
     }
@@ -83,12 +86,12 @@ public:
 class SugarDecorator : public CoffeeDecorator
 {
 public:
-    SugarDecorator(Drink* drink)
-        : CoffeeDecorator(drink)
+    SugarDecorator(unique_ptr<Drink> drink)
+        : CoffeeDecorator(move(drink))
     {
     }
 
-    double price() override
+    double price() const override
     {
         return wrapper->price() + 0.2;
     }
@@ -98,11 +101,12 @@ public:
 class CoffeeDemo {
 public:
     void demo() {
-        Drink* coffee = new Coffee();
+        //Drink* coffee = new Coffee();
+        unique_ptr<Drink> coffee = make_unique<Coffee>();
 
-        coffee = new MilkCoffeeDecorator(coffee);
-        coffee = new ChocolateDecorator(coffee);
-        coffee = new SugarDecorator(coffee);
+        coffee = make_unique<MilkCoffeeDecorator>(move(coffee));
+        coffee = make_unique<ChocolateDecorator>(move(coffee));
+        coffee = make_unique<SugarDecorator>(move(coffee));
 
         cout << coffee->price();
     }

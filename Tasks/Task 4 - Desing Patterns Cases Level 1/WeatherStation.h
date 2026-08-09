@@ -28,15 +28,18 @@ using namespace std;
 class Notifier {
 public:
 	virtual void update() = 0;
+	virtual ~Notifier() = default;
 };
 
 class MobileApp : public Notifier {
+public:
 	void update() {
 		cout << "Mobile App Update" << endl;
 	}
 };
 
 class EmailService : public Notifier {
+public:
 	void update() {
 		cout << "Email Update" << endl;
 	}
@@ -44,6 +47,7 @@ class EmailService : public Notifier {
 };
 
 class Device : public Notifier {
+public:
 	void update() {
 		cout << "Device Update" << endl;
 	}
@@ -72,5 +76,4 @@ public:
 			n->update();
 		}
 	}
-
 };
