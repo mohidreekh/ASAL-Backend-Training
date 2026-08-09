@@ -35,11 +35,12 @@ using namespace std;
 
 class Computer
 {
-public:
+private:
     string cpu;
     int ram;
     string gpu;
     string storage;
+public:
     
     Computer() {
         cpu = "";

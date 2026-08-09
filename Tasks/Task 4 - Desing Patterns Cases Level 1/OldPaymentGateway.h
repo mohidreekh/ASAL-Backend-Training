@@ -5,13 +5,13 @@ using namespace std;
 class OldPaymentGateway
 {
 public:
-
     void payInCents(int amount)
     {
         cout << "Paid "
             << amount
             << " cents\n";
     }
+    virtual ~Pay() = default;
 };
 
 //class ShoppingCart
@@ -32,7 +32,6 @@ public:
 //***********************
 //Solution : using adpter pattern
 
-
 class PaymentGatewayAdapter {
 public:
     void payInDollar(int amount) 
@@ -41,7 +40,6 @@ public:
         gateway.payInCents(amount * 100);
     }
 };
-
 
 class ShoppingCart
 {

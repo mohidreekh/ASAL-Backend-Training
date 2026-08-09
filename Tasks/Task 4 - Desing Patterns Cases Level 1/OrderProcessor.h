@@ -1,5 +1,8 @@
 #pragma once
 #include <iostream>
+#include <memory>
+#include <map>
+
 using namespace std;
 
 //class OrderProcessor
@@ -23,136 +26,113 @@ using namespace std;
 //};
 
 //PROBLEM : If we want to add new payment method we should modify the class.
-//************************************
-//SOLUTION  1: Using Strategy Pattern.
-//************************************
 
-class Pay {
-public:
-	virtual void process() = 0;
-};
-
-
-class Card : public Pay {
-	void process() {
-		cout << "Processing Card Payment" << endl;
-	}
-};
-
-class PayPal : public Pay {
-	void process() {
-		cout << "Processing PayPal Payment" << endl;
-	}
-};
-
-class Crypto : public Pay {
-	void process() {
-		cout << "Processing Crypto Payment" << endl;
-	}
-};
-
-class OrderProcessor
-{
-public:
-    void process(Pay* pay)
-    {
-		pay->process();
-    }
-};
-
-class PayemntDemo {
-public:
-	void demo() {
-		OrderProcessor processor;
-
-		Pay* paypal = new PayPal();
-		Pay* card = new Card();
-		Pay* crypto = new Crypto();
-
-		processor.process(paypal);
-		processor.process(card);
-		processor.process(crypto);
-	}
-};
-
-//**********************************
-//SOLUTION 2 : Using Factory Pattern
-//**********************************
-#include<map>
+// ==================================
+// Solution 1 : Strategy Pattern
+// ==================================
 
 class Pay
 {
 public:
-    virtual void process() = 0;
+    virtual void process() const = 0;
     virtual ~Pay() = default;
 };
-
-
-// Concrete Products
 
 class Card : public Pay
 {
 public:
-    void process() override
+    void process() const override
     {
         cout << "Processing Card Payment\n";
     }
 };
 
-
 class PayPal : public Pay
 {
 public:
-    void process() override
+    void process() const override
     {
         cout << "Processing PayPal Payment\n";
     }
 };
 
-
 class Crypto : public Pay
 {
 public:
-    void process() override
+    void process() const override
     {
         cout << "Processing Crypto Payment\n";
     }
 };
 
+class OrderProcessor
+{
+public:
+    void process(const Pay& pay) const
+    {
+        pay.process();
+    }
+};
 
+class PaymentDemo
+{
+public:
+    void demo()
+    {
+        OrderProcessor processor;
+
+        auto paypal = make_unique<PayPal>();
+        auto card = make_unique<Card>();
+        auto crypto = make_unique<Crypto>();
+
+        processor.process(*paypal);
+        processor.process(*card);
+        processor.process(*crypto);
+    }
+};
+
+// ==================================
+// Solution 2 : Factory Pattern
+// ==================================
 class PaymentFactory
 {
 private:
-
-    using Creator = Pay * (*)();
+    using Creator = unique_ptr<Pay>(*)();
 
     static map<string, Creator>& getCreators()
+{
+    static map<string, Creator> creators
     {
-        static map<string, Creator> creators
         {
-            {"card", []() -> Pay*
+            "card",
+            []() -> unique_ptr<Pay>
             {
-                return new Card();
-            }},
+                return make_unique<Card>();
+            }
+        },
 
-            {"paypal", []() -> Pay*
+        {
+            "paypal",
+            []() -> unique_ptr<Pay>
             {
-                return new PayPal();
-            }},
+                return make_unique<PayPal>();
+            }
+        },
 
-            {"crypto", []() -> Pay*
+        {
+            "crypto",
+            []() -> unique_ptr<Pay>
             {
-                return new Crypto();
-            }}
-        };
+                return make_unique<Crypto>();
+            }
+        }
+    };
 
-        return creators;
-    }
-
+    return creators;
+}
 
 public:
-
-    static Pay* create(string type)
+    static unique_ptr<Pay> create(const string& type)
     {
         auto& creators = getCreators();
 
@@ -167,17 +147,16 @@ public:
     }
 };
 
-
-class PayemntFactoryDemo {
+class PaymentFactoryDemo
+{
 public:
-    void demo() {
-        Pay* payment = PaymentFactory::create("paypal");
+    void demo()
+    {
+        auto payment = PaymentFactory::create("paypal");
 
         if (payment)
         {
             payment->process();
         }
-
-        delete payment;
     }
 };

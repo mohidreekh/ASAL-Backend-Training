@@ -25,7 +25,7 @@ using namespace std;
 
 class MovieFacade {
 public:
-    void watch() {
+    void startMovie() {
         Amplifier amp;
         DVD dvd;
         Projector projector;
@@ -43,9 +43,7 @@ public:
 
     void watchMovie()
     {
-        MovieFacade* watcher = new MovieFacade();
-        watcher->watch();
+        MovieFacade watcher;
+        watcher.startMovie();
     }
 };
-
-

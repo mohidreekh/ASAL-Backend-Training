@@ -38,13 +38,10 @@ class Logger
     static Logger* instance;
 
 public:
-    static Logger* getInstance()
+    static Logger& getInstance()
     {
-        if (instance != nullptr)
-        {
-            return instance;
-        }
-        instance = new Logger();
+        static Logger instance;
+        return instance;
     }
 
     void log(string message)
@@ -53,16 +50,14 @@ public:
     }
 };
 
-
 void server()
 {
-    Logger* logger = Logger::getInstance();
-    logger->log("Server started");
+    Logger &logger = Logger::getInstance();
+    logger.log("Server started");
 }
-
 
 void database()
 {
-    Logger* logger = Logger::getInstance();
-    logger->log("Database connected");
+    Logger &logger = Logger::getInstance();
+    logger.log("Database connected");
 }

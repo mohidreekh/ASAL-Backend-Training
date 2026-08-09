@@ -37,6 +37,7 @@ class ShippingStrategy
 {
 public:
     virtual double calculate(double weight) const = 0;
+    virtual ~ShippingStrategy() = default;
 };
 
 class AirShipping : public ShippingStrategy
