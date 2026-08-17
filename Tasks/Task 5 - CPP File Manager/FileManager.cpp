@@ -8,8 +8,9 @@
 FileManager::FileManager(fs::path initPath)
     : currentPath(initPath), rootPath(initPath)
 {
-    if (!fs::exists(currentPath))
+    if (!fs::exists(currentPath)){
         fs::create_directories(currentPath);
+    }
 
     root = new Directory(currentPath);
     root->loadChildren();
@@ -36,8 +37,9 @@ std::string FileManager::selectFile() const
 
     for (const auto& entry : fs::directory_iterator(currentPath))
     {
-        if (entry.is_regular_file())
+        if (entry.is_regular_file()){
             files.push_back(entry.path());
+        }
     }
 
     if (files.empty())
@@ -195,8 +197,7 @@ void FileManager::appendToFile()
     printFileContent(filePath);
     std::cout << "----------------------------------------\n";
 
-    std::string content =
-        Utils::readLine("Enter content to append: ");
+    std::string content = Utils::readLine("Enter content to append: ");
 
     std::ofstream file(filePath, std::ios::app);
 
@@ -241,11 +242,9 @@ void FileManager::copyFile()
 
     fs::path source = getFilePath(fileName);
 
-    std::string destinationName =
-        Utils::readString("Enter copy name: ");
+    std::string destinationName = Utils::readString("Enter copy name: ");
 
-    fs::path destination =
-        getFilePath(destinationName);
+    fs::path destination = getFilePath(destinationName);
 
     try
     {
@@ -274,8 +273,7 @@ void FileManager::renameFile()
 
     fs::path oldPath = getFilePath(fileName);
 
-    std::string newName =
-        Utils::readString("Enter new name: ");
+    std::string newName = Utils::readString("Enter new name: ");
 
     fs::path newPath = getFilePath(newName);
 
@@ -326,8 +324,9 @@ void FileManager::searchText()
 {
     std::string fileName = selectFile();
 
-    if (fileName.empty())
+    if (fileName.empty()){
         return;
+    }
 
     std::string text = Utils::readString("Enter text to search: ");
 
@@ -365,8 +364,9 @@ fs::path FileManager::selectItem() const
 {
     std::vector<fs::path> items;
 
-    for (const auto& entry : fs::directory_iterator(currentPath))
+    for (const auto& entry : fs::directory_iterator(currentPath)){
         items.push_back(entry.path());
+    }
 
     if (items.empty())
     {
@@ -378,20 +378,18 @@ fs::path FileManager::selectItem() const
 
     for (size_t i = 0; i < items.size(); i++)
     {
-        std::cout << i + 1 << ". "
-            << items[i].filename().string();
+        std::cout << i + 1 << ". " << items[i].filename().string();
 
-        if (fs::is_directory(items[i]))
+        if (fs::is_directory(items[i])){
             std::cout << "/";
+        }
 
         std::cout << '\n';
     }
 
-    int choice =
-        Utils::readNumber("Select item: ");
+    int choice = Utils::readNumber("Select item: ");
 
-    if (choice < 1 ||
-        choice > static_cast<int>(items.size()))
+    if (choice < 1 || choice > static_cast<int>(items.size()))
     {
         std::cout << "Invalid choice.\n";
         return {};
@@ -404,8 +402,9 @@ void FileManager::openItem()
 {
     fs::path selectedItem = selectItem();
 
-    if (selectedItem.empty())
+    if (selectedItem.empty()){
         return;
+    }
 
     if (fs::is_directory(selectedItem))
     {
@@ -451,8 +450,9 @@ void FileManager::displayFileInformation()
 {
     std::string fileName = selectFile();
 
-    if (fileName.empty())
+    if (fileName.empty()){
         return;
+    }
 
     fs::path filePath = getFilePath(fileName);
 
