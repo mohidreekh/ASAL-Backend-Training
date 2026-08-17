@@ -180,8 +180,9 @@ void FileManager::appendToFile()
 {
     std::string fileName = selectFile();
 
-    if (fileName.empty())
+    if (fileName.empty()){
         return;
+    }
 
     fs::path filePath = getFilePath(fileName);
 
@@ -221,8 +222,9 @@ void FileManager::readFile()
 {
     std::string fileName = selectFile();
 
-    if (fileName.empty())
+    if (fileName.empty()){
         return;
+    }
 
     fs::path filePath = getFilePath(fileName);
 
@@ -237,8 +239,9 @@ void FileManager::copyFile()
 {
     std::string fileName = selectFile();
 
-    if (fileName.empty())
+    if (fileName.empty()){
         return;
+    }
 
     fs::path source = getFilePath(fileName);
 
@@ -268,8 +271,9 @@ void FileManager::renameFile()
 {
     std::string fileName = selectFile();
 
-    if (fileName.empty())
+    if (fileName.empty()){
         return;
+    }
 
     fs::path oldPath = getFilePath(fileName);
 
@@ -295,8 +299,9 @@ void FileManager::deleteFile()
 {
     std::string fileName = selectFile();
 
-    if (fileName.empty())
+    if (fileName.empty()){
         return;
+    }
 
     fs::path filePath = getFilePath(fileName);
 
