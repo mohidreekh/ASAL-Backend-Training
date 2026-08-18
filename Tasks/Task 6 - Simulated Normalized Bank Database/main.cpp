@@ -9,7 +9,6 @@ int main()
     // =========================
     // Add Accounts
     // =========================
-
     database.addAccount({
         1001,
         "Ahmed Ali",
@@ -31,11 +30,9 @@ int main()
         "Savings"
         });
 
-
     // =========================
     // Add Savings Accounts
     // =========================
-
     database.addSavingsAccount({
         1001,
         5
@@ -46,42 +43,31 @@ int main()
         4
         });
 
-
     // =========================
     // Add Checking Account
     // =========================
-
     database.addCheckingAccount({
         1002,
         1000
         });
 
-
     // =========================
     // Search Account
     // =========================
-
     std::cout << "\n===== SEARCH ACCOUNT =====\n";
-
     std::cout << "Enter Account Number: ";
-
     int accountNumber;
     std::cin >> accountNumber;
-
     database.searchAccount(accountNumber);
-
 
     // =========================
     // Display All Accounts
     // =========================
-
     database.displayAllAccounts();
-
 
     // =========================
     // Test Duplicate Account
     // =========================
-
     std::cout << "\n===== TEST DUPLICATE =====\n";
 
     database.addAccount({

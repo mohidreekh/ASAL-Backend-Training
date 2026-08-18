@@ -2,17 +2,26 @@
 
 #include <iostream>
 
+//bool BankDatabase::accountExists(int accountNumber) const
+//{
+//    for (const Account& account : accounts)
+//    {
+//        if (account.accountNumber == accountNumber)
+//        {
+//            return true;
+//        }
+//    }
+//
+//    return false;
+//}
+
 bool BankDatabase::accountExists(int accountNumber) const
 {
-    for (const Account& account : accounts)
-    {
-        if (account.accountNumber == accountNumber)
+    return std::find_if(accounts.begin(),accounts.end(),
+        [accountNumber](const Account& account)
         {
-            return true;
-        }
-    }
-
-    return false;
+            return account.accountNumber == accountNumber;
+        }) != accounts.end();
 }
 
 void BankDatabase::addAccount(const Account& account)
