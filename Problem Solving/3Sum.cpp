@@ -4,26 +4,23 @@
 
 using namespace std;
 
-int main()
-{
-    vector<int> vNums = { -1, 0, 1, 2, -1, -4 };
-    vector<vector<int>> vResult;
-
+vector<vector<int>> getThreeSum(vector<int> vNums) {
     sort(vNums.begin(), vNums.end());
+
+    vector<vector<int>> vResult;
 
     for (int i = 0; i < vNums.size(); i++)
     {
         // Skip duplicate i
-        if (i > 0 && vNums[i] == vNums[i - 1])
+        if (i > 0 && vNums[i] == vNums[i - 1]) {
             continue;
+        }
 
         int left = i + 1;
         int right = vNums.size() - 1;
-
         while (left < right)
         {
             int sum = vNums[i] + vNums[left] + vNums[right];
-
             if (sum == 0)
             {
                 vResult.push_back({
@@ -36,12 +33,14 @@ int main()
                 right--;
 
                 // Skip duplicate left
-                while (left < right && vNums[left] == vNums[left - 1])
+                while (left < right && vNums[left] == vNums[left - 1]) {
                     left++;
+                }
 
                 // Skip duplicate right
-                while (left < right && vNums[right] == vNums[right + 1])
+                while (left < right && vNums[right] == vNums[right + 1]) {
                     right--;
+                }
             }
             else if (sum > 0)
             {
@@ -53,21 +52,31 @@ int main()
             }
         }
     }
+    return vResult;
+}
 
-    cout << "Result: ";
-    cout << "[";
+int main()
+{
+    vector<int> vNums = { -1, 0, 1, 2, -1, -4 };
+    vector<vector<int>> vResult = getThreeSum(vNums);
 
-    for (const auto& row : vResult)
+    cout << "Result: [";
+    for (int i = 0; i < vResult.size(); i++)
     {
         cout << "[";
-
-        for (int value : row)
+        for (int j = 0; j < vResult[i].size(); j++)
         {
-            cout << value << " ";
+            cout << vResult[i][j];
+
+            if (j != vResult[i].size() - 1) {
+                cout << ",";
+            }
         }
+        cout << "]";
 
-        cout << "],";
+        if (i != vResult.size() - 1) {
+            cout << ",";
+        }
     }
-
     cout << "]\n";
 }
