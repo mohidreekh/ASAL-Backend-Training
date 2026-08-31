@@ -11,29 +11,7 @@ struct Node
     Node(int value) : val(value), left(nullptr), right(nullptr) {}
 };
 
-//*****************
-//pathSum part 1
-//*****************
-bool hasPathSum(Node* root, int targetSum, int currentSum)
-{
-    if (root == nullptr)
-        return false;
 
-    currentSum += root->val;
-
-    if (root->left == nullptr && root->right == nullptr)
-    {
-        return currentSum == targetSum;
-    }
-
-    return hasPathSum(root->left, targetSum, currentSum) ||
-        hasPathSum(root->right, targetSum, currentSum);
-}
-
-
-//*****************
-//pathSum part 2
-//*****************
 void dfs(Node* root, int targetSum, vector<vector<int>>& vPathes, vector<int>& path)
 {
     if (!root) {
@@ -84,19 +62,7 @@ int main()
 
     int targetSum = 22;
 
-    //*****************
-    //pathSum part 1
-    //*****************
-    if (hasPathSum(root, targetSum, 0))
-        cout << "Path exists" << endl;
-    else
-        cout << "Path does not exist" << endl;
-
-    //*****************
-    //pathSum part 2
-    //*****************
     vector<vector<int>> vPathes = pathSum(root, targetSum);
-
     for (int i = 0; i < vPathes.size(); i++)
     {
         cout << "[";
