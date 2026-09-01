@@ -1,5 +1,6 @@
 #include <iostream>
-#include<vector>
+#include <vector>
+
 using namespace std;
 
 struct Node
@@ -8,41 +9,11 @@ struct Node
     Node* left;
     Node* right;
 
-    Node(int value) : val(value), left(nullptr), right(nullptr) {}
+    Node(int value)
+        : val(value), left(nullptr), right(nullptr) {}
 };
 
-
-void dfs(Node* root, int targetSum, vector<vector<int>>& vPathes, vector<int>& path)
-{
-    if (!root) {
-        return;
-    }
-
-    targetSum -= root->val;
-    path.push_back(root->val);
-
-    if (!root->left && !root->right && targetSum == 0) {
-        vPathes.push_back(path);
-    }
-
-    dfs(root->left, targetSum, vPathes, path);
-    dfs(root->right, targetSum, vPathes, path);
-
-    path.pop_back();
-}
-
-vector<vector<int>> pathSum(Node* root, int targetSum)
-{
-    vector<vector<int>> vPathes;
-    vector<int> path;
-
-    dfs(root, targetSum, vPathes, path);
-
-    return vPathes;
-}
-
-
-int main()
+Node* buildTree()
 {
     Node* root = new Node(5);
 
@@ -57,27 +28,81 @@ int main()
     root->right->left = new Node(13);
     root->right->right = new Node(4);
 
-    root->right->right->right = new Node(1);
     root->right->right->left = new Node(5);
+    root->right->right->right = new Node(1);
 
-    int targetSum = 22;
+    return root;
+}
 
-    vector<vector<int>> vPathes = pathSum(root, targetSum);
-    for (int i = 0; i < vPathes.size(); i++)
+void dfs(Node* root, int targetSum, vector<vector<int>>& paths, vector<int>& currentPath)
+{
+    if (!root)
+    {
+        return;
+    }
+
+    targetSum -= root->val;
+    currentPath.push_back(root->val);
+
+    if (!root->left && !root->right && targetSum == 0)
+    {
+        paths.push_back(currentPath);
+    }
+
+    dfs(root->left, targetSum, paths, currentPath);
+    dfs(root->right, targetSum, paths, currentPath);
+
+    currentPath.pop_back();
+}
+
+vector<vector<int>> pathSum(Node* root, int targetSum)
+{
+    vector<vector<int>> paths;
+    vector<int> currentPath;
+
+    dfs(root, targetSum, paths, currentPath);
+
+    return paths;
+}
+
+void printPaths(const vector<vector<int>>& paths)
+{
+    cout << "[";
+
+    for (size_t i = 0; i < paths.size(); i++)
     {
         cout << "[";
-        for (int j = 0; j < vPathes[i].size(); j++)
+
+        for (size_t j = 0; j < paths[i].size(); j++)
         {
-            cout << vPathes[i][j];
-            if (j < vPathes[i].size() - 1)
+            cout << paths[i][j];
+
+            if (j + 1 < paths[i].size())
             {
                 cout << ", ";
             }
         }
+
         cout << "]";
-        if (i < vPathes.size() - 1)
+
+        if (i + 1 < paths.size())
         {
             cout << ", ";
         }
     }
+
+    cout << "]\n";
+}
+
+int main()
+{
+    Node* root = buildTree();
+
+    const int targetSum = 22;
+
+    vector<vector<int>> paths = pathSum(root, targetSum);
+
+    printPaths(paths);
+
+    return 0;
 }

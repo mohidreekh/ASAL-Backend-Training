@@ -1,6 +1,4 @@
 #include <iostream>
-#include<vector>
-using namespace std;
 
 struct Node
 {
@@ -8,26 +6,29 @@ struct Node
     Node* left;
     Node* right;
 
-    Node(int value) : val(value), left(nullptr), right(nullptr) {}
+    Node(int value)
+        : val(value), left(nullptr), right(nullptr) {}
 };
 
-bool hasPathSum(Node* root, int targetSum, int currentSum)
+bool hasPathSum(Node* root, int targetSum)
 {
     if (root == nullptr)
+    {
         return false;
+    }
 
-    currentSum += root->val;
+    targetSum -= root->val;
 
     if (root->left == nullptr && root->right == nullptr)
     {
-        return currentSum == targetSum;
+        return targetSum == 0;
     }
 
-    return hasPathSum(root->left, targetSum, currentSum) ||
-        hasPathSum(root->right, targetSum, currentSum);
+    return hasPathSum(root->left, targetSum) ||
+           hasPathSum(root->right, targetSum);
 }
 
-int main()
+Node* buildTree()
 {
     Node* root = new Node(5);
 
@@ -42,13 +43,26 @@ int main()
     root->right->left = new Node(13);
     root->right->right = new Node(4);
 
-    root->right->right->right = new Node(1);
     root->right->right->left = new Node(5);
+    root->right->right->right = new Node(1);
 
-    int targetSum = 22;
+    return root;
+}
 
-    if (hasPathSum(root, targetSum, 0))
-        cout << "Path exists" << endl;
+int main()
+{
+    Node* root = buildTree();
+
+    const int targetSum = 22;
+
+    if (hasPathSum(root, targetSum))
+    {
+        std::cout << "Path exists\n";
+    }
     else
-        cout << "Path does not exist" << endl;
+    {
+        std::cout << "Path does not exist\n";
+    }
+
+    return 0;
 }
