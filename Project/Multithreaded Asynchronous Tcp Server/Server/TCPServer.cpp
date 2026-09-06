@@ -1,6 +1,6 @@
 #include "TCPServer.hpp"
 #include "ClientSession.hpp"
-#include "ClientManager.hpp"
+#include "Chat.hpp"
 #include<iostream>
 
 using namespace boost::asio;
@@ -16,50 +16,52 @@ void TCPServer::start()
 	_acceptClient();
 }
 
+void TCPServer::stop()
+{
+    _stopped = true;
+
+    boost::system::error_code ec;
+    _acceptor.close(ec);
+
+    if (ec)
+    {
+        std::cout
+            << "Server shutdown error: "
+            << ec.message()
+            << '\n';
+    }
+}
+
 void TCPServer::_acceptClient() 
 {
 	_acceptor.async_accept([this](system::error_code ec, ip::tcp::socket socket) {
         if (!ec)
         {
+            std::cout << "Thread: " << std::this_thread::get_id() << '\n';
+
+            std::this_thread::sleep_for(std::chrono::seconds(2));
+
             // shared_ptr keeps the Session alive after the handler ends.
             // Asynchronous operations may still be running, so the Session
             // must not be destroyed until all shared_ptr references are gone.
-            auto session = std::make_shared<ClientSession>(std::move(socket));
+            auto client = std::make_shared<ClientSession>(std::move(socket));
 
-            _clientManager.add(session);
+            _chat.addClient(client);
+      
+            client->start();
 
-            std::cout << "Client connected. Total Clients : " << _clientManager.size() << std::endl;
-
-            session->setOnDisconnect(
-                [this, session]()
-                {
-                    _clientManager.remove(session);
-
-                    std::cout
-                        << "Client removed\n"
-                        << "Clients: "
-                        << _clientManager.size()
-                        << '\n';
-                });
-
-            session->setOnMessage(
-                [this, session](const std::string& message)
-                {
-                    std::string fullMessage = session->getUsername() + ": " + message;
-
-                    _clientManager.broadcast(fullMessage, session);
-                });
-
-            session->start();
         }
         else
         {
-            std::cout << "Accept error: "
-                << ec.message()
-                << '\n';
+            if (!_stopped)
+            {
+                std::cout << "Accept error: " << ec.message() << '\n';
+            }
         }
 
-        _acceptClient();
-
+        if (!_stopped) 
+        {
+            _acceptClient();
+        }
 	});
 }

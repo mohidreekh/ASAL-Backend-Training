@@ -13,6 +13,9 @@ class ClientSession : public std::enable_shared_from_this<ClientSession>
 private:
 	ip::tcp::socket _socket;
 
+	// Ensures handlers for this session are not executed concurrently.
+	strand<any_io_executor> _strand;
+
 	// Temporary buffer used by Asio.
 	std::vector<char> _vBuffer;
 
@@ -27,6 +30,9 @@ private:
 
 	std::string _username = "Anonymous";
 
+	bool _disconnected = false;
+
+	
 public:
 	ClientSession(ip::tcp::socket socket);
 
@@ -39,7 +45,12 @@ public:
 	void setOnMessage(std::function<void(const std::string&)> callback);
 
 	void setUsername(const std::string& username);
+
 	const std::string& getUsername() const;
+
+	void disconnect();
+
+	const bool hasUserName();
 
 private:
 	void _read();

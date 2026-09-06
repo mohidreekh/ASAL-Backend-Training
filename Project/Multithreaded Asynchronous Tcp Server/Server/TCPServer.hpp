@@ -1,7 +1,6 @@
 #pragma once
 #include <boost/asio.hpp>
-#include "ClientManager.hpp"
-
+#include"Chat.hpp"
 using namespace boost::asio;
 
 class TCPServer
@@ -9,12 +8,16 @@ class TCPServer
 private:
     io_context& _io;
     ip::tcp::acceptor _acceptor;
-    ClientManager _clientManager;
+    Chat _chat;
+
+    bool _stopped = false;
 
 public:
     TCPServer(io_context& _io, unsigned short port);
 
     void start();
+
+    void stop();
 
 private:
     void _acceptClient();

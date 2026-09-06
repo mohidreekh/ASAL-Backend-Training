@@ -48,8 +48,10 @@ private:
         std::cout << "              TCP CHAT CLIENT\n";
         std::cout << "=============================================\n";
         std::cout << " Connected to: 127.0.0.1:8080\n";
-        std::cout << " Type /name <name> to change your name\n";
-        std::cout << " Type /quit to exit\n";
+        std::cout << " Available commands:\n";
+        std::cout << "   /users                    - List connected users\n";
+        std::cout << "   /msg <username> <message> - Send a private message\n";
+        std::cout << "   /quit                     - Disconnect from the server\n";
         std::cout << "---------------------------------------------\n";
     }
 
@@ -144,6 +146,7 @@ int main()
 
             if (message == "/quit")
             {
+                client.send(message);
                 break;
             }
 
