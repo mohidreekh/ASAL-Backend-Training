@@ -1,136 +1,193 @@
 # Software Development Training Showcase
 
-Welcome to my **Software Development Training Showcase** repository. This repository documents my practical training journey, hands-on tasks, and problem-solving exercises in modern **C++**, backend software engineering, object-oriented software design, multithreaded systems, file management, and RESTful web services.
+Welcome to my **Software Development Training Showcase** repository. This repository documents my practical training journey, hands-on projects, and problem-solving exercises in modern **C++**, backend software engineering, networking, concurrency, software design, file systems, databases, and RESTful web services.
 
 ---
 
 ## What I Learned
 
 ### C++ & Modern C++
+
 * Applied modern C++ standards (C++11/C++17) for clean memory management and type safety.
-* Leveraged standard library header features such as `<memory>` (`std::unique_ptr`, `std::shared_ptr`), `<filesystem>`, and modern standard container utilities.
-* Structured modular programs separating declarations (`.h`) and implementations (`.cpp`).
+* Leveraged STL containers and algorithms to build efficient and maintainable applications.
+* Used modern language features such as smart pointers, lambdas, move semantics, and filesystem utilities.
+* Structured modular applications with clear separation between interfaces and implementations.
 
 ### Object-Oriented Programming (OOP) & SOLID Principles
-* Implemented core OOP concepts: encapsulation, inheritance, polymorphism, and abstract base classes.
-* Designed extensible components adhering to Single Responsibility and Open/Closed principles.
-* Utilized factory methods and abstract base interfaces to isolate business logic from object creation.
+
+* Implemented encapsulation, inheritance, polymorphism, and abstraction.
+* Applied SOLID principles to improve maintainability and extensibility.
+* Built modular systems using abstract interfaces and factory-based object creation.
 
 ### Multithreading & Concurrency
-* Developed concurrent execution models using `std::thread`, `std::mutex`, `std::lock_guard`, and `std::scoped_lock` for safe concurrent state access.
-* Implemented deadlock-prevention strategies when operating on multiple concurrent resources simultaneously.
-* Managed inter-thread coordination and metrics using `std::condition_variable` and atomic operations (`std::atomic`).
+
+* Developed concurrent systems using `std::thread`, `std::mutex`, `std::lock_guard`, and `std::scoped_lock`.
+* Implemented thread-safe shared state management.
+* Utilized `std::condition_variable` and `std::atomic` for synchronization and coordination.
+* Applied concurrency concepts in both banking and networking applications.
+
+### Networking & TCP Systems
+
+* Built asynchronous TCP networking applications using **Boost.Asio**.
+* Designed custom TCP protocols with length-prefixed message framing.
+* Implemented client session management, broadcasting, private messaging, and command handling.
+* Applied thread pools and asynchronous I/O to support multiple concurrent clients.
+* Developed modular networking architectures separating transport, business logic, and session management.
 
 ### Design Patterns
-* Solved recurring design challenges by implementing foundational design patterns:
-  * **Behavioral**: Strategy Pattern (dynamically interchangeable payment strategies), Observer Pattern (event notifications).
-  * **Creational**: Factory Pattern (dynamic object creation), Builder Pattern (step-by-step object construction), Singleton Pattern (thread-safe global loggers).
-  * **Structural**: Adapter Pattern (interface unification), Decorator Pattern (dynamic behavior decoration).
+
+* Implemented commonly used design patterns to solve recurring software design challenges:
+
+  * **Behavioral**: Strategy, Observer
+  * **Creational**: Factory, Builder, Singleton
+  * **Structural**: Adapter, Decorator
 
 ### File Systems & I/O Operations
-* Built file system interaction engines using C++17 `<filesystem>` (`std::filesystem::path`, `directory_iterator`).
-* Implemented recursive tree navigation, directory creation, file creation, writing, and structured text parsing using C++ standard file streams (`std::ifstream`, `std::ofstream`).
+
+* Built file management utilities using C++17 `<filesystem>`.
+* Implemented directory traversal, recursive navigation, file creation, and file manipulation.
+* Utilized standard file streams for reading, writing, and parsing structured data.
 
 ### Database Concepts & Normalization
-* Simulated relational database architecture in-memory.
-* Implemented relational primary and foreign key mapping across C++ `struct` collections.
-* Modeled First Normal Form (**1NF**), Second Normal Form (**2NF**), and Third Normal Form (**3NF**) principles to eliminate data redundancy and partial dependencies without an external DBMS engine.
 
-### Networking & REST APIs
-* Implemented lightweight HTTP client and server applications using C++.
-* Constructed RESTful HTTP endpoints (`GET`, `POST`, `PUT`, `DELETE`) with route matching and query parameters.
-* Handled request validation, JSON payload serialization, deserialization (`nlohmann/json`), and appropriate HTTP response status codes (`200`, `201`, `400`, `404`).
+* Simulated relational database systems in memory.
+* Modeled primary and foreign key relationships.
+* Applied database normalization concepts (1NF, 2NF, 3NF) to reduce redundancy and improve data organization.
+
+### REST APIs
+
+* Implemented lightweight HTTP servers and clients in C++.
+* Built RESTful endpoints using GET, POST, PUT, and DELETE operations.
+* Handled JSON serialization and deserialization using `nlohmann/json`.
+* Applied request validation and proper HTTP response handling.
 
 ---
 
 ## Projects & Practical Work
 
-### 1. Multi-Threaded Banking System
-* **Description**: A concurrent banking application designed to handle asynchronous client transactions safety across multiple threads.
-* **Main Technologies / Concepts**: Modern C++, `std::thread`, `std::mutex`, `std::scoped_lock`, `std::atomic`, `std::condition_variable`.
-* **Key Skills Practiced**: Thread safety, avoiding race conditions, preventing deadlocks during multi-account transfers, and atomic transaction counters.
+### 1. Multithreaded Asynchronous TCP Chat Server
 
-### 2. C++ REST API Client & Server
-* **Description**: A lightweight user management backend service and corresponding client script interacting over HTTP.
-* **Main Technologies / Concepts**: C++, `cpp-httplib`, `nlohmann/json`, REST architecture, HTTP routing, JSON parsing.
-* **Key Skills Practiced**: Developing RESTful HTTP service endpoints, processing incoming JSON request bodies, building custom client HTTP calls, and enforcing HTTP status conventions.
+* **Description**: A real-time chat server supporting multiple concurrent TCP clients using asynchronous networking and custom protocol design.
+* **Main Technologies / Concepts**: C++, Boost.Asio, TCP/IP, Socket Programming, Thread Pools, Message Framing.
+* **Key Skills Practiced**:
 
-### 3. Design Patterns Case Suite
-* **Description**: A collection of refactored real-world software design scenarios moving from rigid code to clean pattern implementations.
-* **Main Technologies / Concepts**: Modern C++, Strategy, Factory, Singleton, Observer, Decorator, Adapter, Builder patterns.
-* **Key Skills Practiced**: Writing loose-coupled, flexible code, eliminating code duplication, and applying SOLID design principles.
+  * Designing custom TCP protocols.
+  * Implementing asynchronous networking.
+  * Managing multiple concurrent clients.
+  * Broadcasting and private messaging.
+  * Session and client lifecycle management.
+  * Modular backend architecture design.
 
-### 4. C++ File Manager
-* **Description**: An interactive command-line utility for navigating and manipulating file system hierarchies.
-* **Main Technologies / Concepts**: C++17 `<filesystem>`, File I/O Streams (`std::ifstream`, `std::ofstream`), Dynamic Directory Trees.
-* **Key Skills Practiced**: Directory traversal, path manipulation, file reading/writing, and building structural composite file trees.
+### 2. Multi-Threaded Banking System
 
-### 5. Simulated Normalized Bank Database
-* **Description**: An in-memory relational database model designed to practice database normalization concepts in C++.
-* **Main Technologies / Concepts**: C++ `struct`, `std::vector`, Database Normalization (1NF, 2NF, 3NF), Relational Keys.
-* **Key Skills Practiced**: Organizing data schema into normalized relational entities and maintaining relational integrity with primary/foreign key mappings.
+* **Description**: A concurrent banking application designed to safely process transactions across multiple threads.
+* **Main Technologies / Concepts**: Modern C++, Multithreading, Synchronization Primitives.
+* **Key Skills Practiced**: Thread safety, race-condition prevention, deadlock avoidance, and transaction coordination.
 
-### 6. OOP Bank System
-* **Description**: A modular bank account management system built using object-oriented principles and creational factory patterns.
-* **Main Technologies / Concepts**: Polymorphism, Abstract Base Classes, Header/Implementation Separation, Factory Pattern.
-* **Key Skills Practiced**: Object-oriented system modeling, class inheritance hierarchies, and dynamic object initialization.
+### 3. C++ REST API Client & Server
 
-### 7. Student Grade Management System
-* **Description**: A foundational console application for recording student records, validating input, and performing statistical calculations.
-* **Main Technologies / Concepts**: Procedural C++, Dynamic Arrays, Input Validation Functions.
-* **Key Skills Practiced**: Input sanitization, buffer error handling, and structured console application flow.
+* **Description**: A lightweight user management backend service and HTTP client.
+* **Main Technologies / Concepts**: C++, cpp-httplib, nlohmann/json, REST APIs.
+* **Key Skills Practiced**: HTTP communication, endpoint implementation, request processing, and JSON handling.
+
+### 4. Design Patterns Case Suite
+
+* **Description**: A collection of software design scenarios refactored using design patterns.
+* **Main Technologies / Concepts**: Strategy, Factory, Builder, Singleton, Observer, Adapter, Decorator.
+* **Key Skills Practiced**: Flexible architecture design and clean code practices.
+
+### 5. C++ File Manager
+
+* **Description**: A command-line utility for navigating and manipulating file system structures.
+* **Main Technologies / Concepts**: C++17 Filesystem, File I/O.
+* **Key Skills Practiced**: Directory traversal, path handling, and file management.
+
+### 6. Simulated Normalized Bank Database
+
+* **Description**: An in-memory relational database model built to practice database design concepts.
+* **Main Technologies / Concepts**: C++ Structs, Vectors, Database Normalization.
+* **Key Skills Practiced**: Schema organization and relational data modeling.
+
+### 7. OOP Bank System
+
+* **Description**: A modular banking system built using object-oriented design principles.
+* **Main Technologies / Concepts**: OOP, Polymorphism, Factory Pattern.
+* **Key Skills Practiced**: System modeling and object-oriented architecture.
+
+### 8. Student Grade Management System
+
+* **Description**: A console application for managing student records and academic statistics.
+* **Main Technologies / Concepts**: Procedural C++, Validation Logic.
+* **Key Skills Practiced**: Input validation and structured program design.
 
 ---
 
 ## Technical Skills
 
 * **Languages**: C++ (C++11, C++17)
-* **Libraries & Frameworks**: C++ Standard Template Library (STL), `cpp-httplib`, `nlohmann/json`
-* **Software Design & Architecture**: Object-Oriented Programming (OOP), SOLID Principles, Design Patterns (Strategy, Factory, Singleton, Observer, Decorator, Adapter, Builder)
-* **Concurrent Programming**: Multithreading (`std::thread`), Mutex Locking (`std::mutex`, `std::scoped_lock`), Atomic Operations (`std::atomic`), Synchronization (`std::condition_variable`)
-* **Systems & Backend**: RESTful API Design, HTTP Method Handling, File System Management (`std::filesystem`), Database Normalization (1NF, 2NF, 3NF)
+* **Libraries & Frameworks**: STL, Boost.Asio, cpp-httplib, nlohmann/json
+* **Networking**: TCP/IP, Socket Programming, Asynchronous Networking, Message Framing, Client-Server Architecture
+* **Software Design & Architecture**: OOP, SOLID Principles, Design Patterns
+* **Concurrent Programming**: std::thread, std::mutex, std::scoped_lock, std::atomic, std::condition_variable, Thread Pools
+* **Memory Management**: Smart Pointers (unique_ptr, shared_ptr, weak_ptr), RAII
+* **Data Structures & Algorithms**: Arrays, Vectors, Maps, Hash Tables, Trees, BST, AVL Trees, Ternary Search Trees
+* **Generic Programming**: Templates, STL Algorithms, Lambda Expressions
+
+* **Systems & Backend**: RESTful APIs, HTTP, Real-Time Systems, File System Management, Database Normalization
 * **Tools**: Git, GitHub
 
 ---
 
 ## Problem Solving
 
-The repository features algorithmic solutions targeting data structures, array manipulation, tree traversal, and dynamic programming techniques:
+The repository includes algorithmic problem-solving exercises focused on data structures and algorithms:
 
-* **Arrays & Two-Pointer Methods**:
-  * `Two Sum`: Finding pair indices meeting target totals.
-  * `3Sum`: Solving tri-number zero-sum problems with multi-pointer techniques.
-* **Trees & Recursion**:
-  * `Symmetric Tree`: Recursive tree symmetry evaluation.
-  * `Count Good Nodes in Binary Tree`: Path traversal tracking maximum values.
-  * `Sum Root to Leaf Numbers`: Accumulating root-to-leaf path values.
-  * `Kth Smallest Element in a BST`: In-order binary search tree traversal.
-* **Strings & Dynamic Programming**:
-  * `Longest Palindromic Substring`: String expansion and substring analysis.
-  * `Triangle Array`: Dynamic path minimization across multi-level arrays.
+### Arrays & Two-Pointer Techniques
+
+* Two Sum
+* 3Sum
+
+### Trees & Recursion
+
+* Symmetric Tree
+* Count Good Nodes in Binary Tree
+* Sum Root to Leaf Numbers
+* Kth Smallest Element in a BST
+* Path Sum
+* Path Sum II
+
+### Dynamic Programming & Strings
+
+* Longest Palindromic Substring
+* Triangle
 
 ---
 
 ## Key Takeaways
 
-* **Clean & Maintainable Code**: Shifted from monolithic procedural functions to modular, cleanly separated header and implementation files.
-* **Robust Concurrency Management**: Gained practical knowledge in preventing data races and deadlocks while coordinating shared state across threads.
-* **Architectural Awareness**: Practiced selecting appropriate design patterns to keep systems flexible and maintainable when requirements change.
-* **Backend Systems Development**: Understood the complete flow of web service communication, from client request serialization to server-side endpoint handling.
-* **Algorithmic Proficiency**: Improved problem-solving skills by practicing data structure selection, recursive logic, and spatial complexity optimization.
+* **Clean & Maintainable Code**: Improved code organization through modular architecture and proper separation of concerns.
+* **Concurrency Management**: Practiced safe multithreaded programming and synchronization techniques.
+* **Real-Time Networking**: Built asynchronous TCP systems capable of handling multiple simultaneous clients.
+* **Protocol Design**: Implemented custom message framing for reliable communication over TCP streams.
+* **Backend Development**: Developed REST APIs and networking services from request handling to business logic implementation.
+* **Architectural Thinking**: Applied design patterns and SOLID principles to create scalable and maintainable systems.
+* **Problem Solving**: Strengthened algorithmic thinking through practical data structure and algorithm challenges.
 
 ---
 
 ## Repository Structure
 
 ```text
-├── Problem Solving/          # Solutions to algorithmic and data structure problems (LeetCode)
-└── Tasks/                    # Software engineering learning modules and practical projects
-    ├── Task 1 - Student Grade Management System/   # Procedural foundation & input validation
-    ├── Task 2 - OOP Bank System/                   # Object-oriented architecture & factory design
-    ├── Task 3 - Multi-Threaded Banking System/     # Thread safety & concurrent transaction engine
-    ├── Task 4 - Desing Patterns Cases Level 1/     # Comprehensive design pattern refactoring suite
-    ├── Task 5 - CPP File Manager/                  # File system tree navigation & filesystem operations
-    ├── Task 6 - Simulated Normalized Bank Database/# In-memory database normalization (1NF-3NF)
-    └── Task 7 - Learn C++ REST API/                # Client-server REST API over HTTP with JSON
+├── Problem Solving/          # Algorithm and data structure solutions
+├── Project/
+│   └── Multithreaded Asynchronous Tcp Server/
+│       └── Real-time TCP chat server using Boost.Asio
+└── Tasks/
+    ├── Task 1 - Student Grade Management System/
+    ├── Task 2 - OOP Bank System/
+    ├── Task 3 - Multi-Threaded Banking System/
+    ├── Task 4 - Desing Patterns Cases Level 1/
+    ├── Task 5 - CPP File Manager/
+    ├── Task 6 - Simulated Normalized Bank Database/
+    └── Task 7 - Learn C++ REST API/
 ```
