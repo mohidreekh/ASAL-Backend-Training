@@ -1,6 +1,6 @@
-# Software Development Training Showcase
+# Backend Development Training Showcase
 
-Welcome to my **Software Development Training Showcase** repository. This repository documents my practical training journey, hands-on projects, and problem-solving exercises in modern **C++**, backend software engineering, networking, concurrency, software design, file systems, databases, and RESTful web services.
+Welcome to my **Backend Development Training Showcase** repository. This repository documents my practical training journey, hands-on projects, and problem-solving exercises in modern **C++**, backend software engineering, networking, concurrency, software design, file systems, databases, and RESTful web services.
 
 ---
 
